@@ -1,0 +1,245 @@
+<html>
+
+	<head>
+	<meta charset="UTF-8">
+  <meta name="description" content="Free Web tutorials">
+  <meta name="keywords" content="HTML,CSS,XML,JavaScript">
+  <meta name="author" content="John Doe">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<link rel="stylesheet" href="../css/main.css">
+		<center><h1>Todd Martin</h1></center>
+		<center><h2>Software Engineering Student</h2></center>
+	</head>
+
+	<body>
+
+		<div class="topnav">
+			<a href="../index.html">Home</a>
+			<a href="../articles">Articles</a>
+			<a href="http://github.com/martintc">My Github</a>
+		</div>
+	
+		<div class="content">
+<h1>Glance at Recursion</h1>
+
+<p>All of us that program go through a time where we learn about control flow through a program and looping, which are essential to understanding recursion. I will provide some background before diving into the basics of recursion.</p>
+
+<p>Control flow allows us to test conditions in various way to control the way in which a program executes or manipulates data. Looping gives us the ability to reuse code without actually writing it multiple times. Here are some implementations of this in java:</p>
+
+<pre>
+<code>
+// Ex 1) control flow statements
+
+int x = 1;
+
+if (x == 2) {
+
+	return true;
+
+} else {
+
+	return false;
+
+}
+</pre>
+</code>
+
+<p>In example 1, the code would return false. We are simply setting a variable equal to a value and testing “IF” the variable stored in the variable is equal to some other value such as <i>2</i>. If the value of <var>x</var> is equal to <i>2</i>, the if-statement is true and executes what is inside of the code block of the if-statement, which would happen to return true. However, in the case of example 1, the value of <var>x</var> is not equal to <i>2</i>, so the if statement evaluates it as false and does not execute. The program then skips over the if-statement’s code block and will attempt to test any other conditions, or just continue on with the execution of the program.</p>
+
+<p>Since the first test condition was false and no others are present, it will default to the else statement as a means of execution and return false.
+
+Here is the same code, but with comments.</p>
+
+<pre>
+<code>
+// Ex 1) control flow statements
+
+int x = 1; // create space in memory and name the space as “x”
+
+if (x == 2) { // is the value stored in x equal to 2? No
+
+	return true; // code is skipped over
+
+} else { // default if all other test conditions are not true
+
+	return false; // return a value of false
+
+}
+</code>
+</pre>
+
+<p>Here is an implementation of looping with a while-statement.</p>
+
+<pre>
+<code>
+// Ex 2)
+int i = 0;
+
+while (i < 10) {
+	i++;
+
+	System.out.print(i + " ");
+}
+</code>
+</pre>
+
+<p>In example two, a space in memory is created that will be referenced by <var>i</var>. The value store in <var>i</var> is 0. In the while loop, we are testing if the value of <var>i</var> is less than or equal to 10. While <var>i</var> is less than or equal to 10, we will execute the statements in the code block associated with the while statement. Here is our output:
+
+<pre>
+<samp>
+1 2 3 4 5 6 7 8 9 10
+</samp>
+</pre>
+
+<p>Here is example 2, but this time with comments</p>
+
+<pre>
+<code>
+// Ex 2) looping
+
+int i = 0; // create a space memory with the reference of “i” and a value of 0
+
+while (i < 10) { // while the value in i is less than 10, do
+
+	i++; // 1 to the value store in i (ex: i = 1 +i or i = 1 + 0 and i = 1+1)
+
+	System.out.print(i + " "); // output the results during each stage of the loop
+}
+</code>
+</pre>
+
+<p>And of course, we can make our programs do more complicated things by combining the two together. In the following code, if-else statements are combined with a loop to search an array for a value.</p>
+
+<pre>
+<code>
+// Example 3)
+
+int[] x = {1, 4, 5, 42, 2, 7, 100, 24, 32, 64, 1024, 9}; // create a space in memory that is an array of values with the reference of “x”
+
+int key = 42; // create a space in memory to store the value to look for
+
+for (int i = 0; i < x.length; i++) { // with i = 0, so long as i is less than the length of the array, and increment i by 1 at the end of block execution, do
+
+	if (key != x[i]) { // check if the key is not equal to the value at index i of array x
+
+    		System.out.println(key + " is not found at index " + i); // output
+
+	} else { // if the above if-statement is false, then the key must equal the value at index i of array x
+	
+    		System.out.println(key + " has been found at index " + i); // output
+	
+	}
+}
+</code>
+</pre>
+
+<p>The code above works, and can be reusable if placed inside of a method with the appropriate arguments to pass in. However, code to perform the same action could be a lot shorter and easier on the eyes.
+
+Here is an example of code that uses recursion.</p>
+
+<pre>
+<code>
+// Example 4)
+
+public class Main {
+
+public static void main (String[] args) throws java.lang.Exception
+
+{
+
+    Main main = new main();
+
+    main.run();
+
+}
+
+
+
+public void run () {
+
+	System.out.println(pow(2,3));
+
+}
+
+
+
+public int pow (int pBase, int pExp) {
+
+	if (pExp == 1) {
+
+    		return pBase;
+
+	} else {
+
+    		return pBase * pow(pBase, pExp - 1);
+
+	}
+
+}
+</code>
+</pre>
+
+<p>Example 4 is a simple program. All it is doing is calculate power of a number. Such as 2 to the third power (2^3).
+
+The focus of this program is on the function”pow” with a return value of int. Pow takes two arguments, pBase and pExp, both of type int. In the body,if-else statements are used to test the value stored in pExp. If pExp is 1, we just return the value in pBase. Other wise, we multiple pBase by another function of pow with the same arguments, except that we will subtract 1 from it.
+
+When the program is tasked to solve 2^(4), it will call the method pow as:</p>
+
+<code>
+pow(2, 4)
+</code>
+
+<p>Since pExp is not equal to 1, it will run itself again and again until pExp that is getting passed into a new implementation of pow is equal to 1.</p>
+
+<pre>
+<code>
+pow(2, 3)
+
+pow(2, 2)
+
+pow(2, 1)
+</code>
+</pre>
+
+<p>Another way to think of it is by thinking of the returns by creating something that looks like this:
+
+pBase x pow(2, 4-1) x pow(2, 3-1) x pBase
+
+2 * 2 * 2 * 2
+
+Another common example is to write a recursive function that calculates the factorial of a number:</p>
+
+<pre>
+<code>
+// Example 5
+
+public int factorial (int n) {
+
+	if (n == 1) {
+
+    		return 1;
+
+	} else {
+
+    		return n * factorial(n - 1);
+
+	}
+
+}
+</code>
+</pre>
+
+<p>So exercises to do to practice writing recursive functions:</p>
+
+<pre>
+<samp>
+Output a string backwards
+Fibonacci sequence
+</samp>
+</pre>
+
+		</div>
+
+	</body>
+
+</html>

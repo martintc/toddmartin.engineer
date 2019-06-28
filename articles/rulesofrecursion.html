@@ -1,0 +1,173 @@
+<html>
+
+	<head>
+	<meta charset="UTF-8">
+  <meta name="description" content="Rules of Recurion">
+  <meta name="keywords" content="java, recursion">
+  <meta name="author" content="Todd Martin">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<link rel="stylesheet" href="../css/main.css">
+		<center><h1>Todd Martin</h1></center>
+		<center><h2>Software Engineering Student</h2></center>
+	</head>
+
+	<body>
+
+		<div class="topnav">
+			<a href="../index.html">Home</a>
+			<a href="../articles">Articles</a>
+			<a href="http://github.com/martintc">My Github</a>
+		</div>
+	
+		<div class="content">
+		<h1>Rules of Recursion</h1>
+		
+<p>In another blog article, I touched briefly on what recursion looks like and how it flows. I touched on how it acts as a loop with a little but more involvement when it comes to using control statements. Here, I will touch on some of the rules and some other key terms of recursion.</p>
+
+<h2>Recursion must stop</h2>
+
+<p>Recursion must always come to an end. If not, it will result in an infinite loop. This of writting a loop like the one below:</p>
+
+<pre>
+<code>
+while (true) {
+
+	System.out.println("Hello!");
+
+}
+</code>
+</pre>
+
+<p>The above code will print out “Hello!” for ever until the program is interrupted by some outside force. It will not stop on it’s own.</p>
+
+<p>Luckily, there are some programming languages that will check for this conditions and spit out an error. Java is one, however, it isn’t exactly pretty.</p>
+
+<pre>
+<code>
+public String nonStopRecursion () {
+
+	System.out.println("Hello!");
+
+	return nonStopRecursion();
+
+}
+</code>
+</pre>
+
+<p>This method above will lead to infinite recursion. Java will compile it, and allow it to run, but it will eventually stop running and begin to spit out quiet a few errors, then it will eventually top that. Below is a snippet of my output, not the full output, it was much longer.</p>
+
+<pre>
+<samp>
+Hello!
+
+Hello!
+
+Hello!
+
+Hello!
+
+Exception in thread “main” java.lang.StackOverflowError
+
+at java.base/sun.nio.cs.UTF_8$Encoder.encodeLoop(UTF_8.java:564)
+
+at java.base/java.nio.charset.CharsetEncoder.encode(CharsetEncoder.java:576)
+
+at java.base/sun.nio.cs.StreamEncoder.implWrite(StreamEncoder.java:292)
+
+at java.base/sun.nio.cs.StreamEncoder.implWrite(StreamEncoder.java:281)
+
+at java.base/sun.nio.cs.StreamEncoder.write(StreamEncoder.java:125)
+
+at java.base/java.io.OutputStreamWriter.write(OutputStreamWriter.java:211)
+
+at java.base/java.io.BufferedWriter.flushBuffer(BufferedWriter.java:120)
+
+at java.base/java.io.PrintStream.write(PrintStream.java:605)
+
+at java.base/java.io.PrintStream.print(PrintStream.java:745)
+
+at java.base/java.io.PrintStream.println(PrintStream.java:882)
+
+at Test.run(Test.java:9)
+
+at Test.run(Test.java:10)
+
+at Test.run(Test.java:10)
+
+at Test.run(Test.java:10)
+
+at Test.run(Test.java:10)
+
+at Test.run(Test.java:10)
+
+at Test.run(Test.java:10)
+
+at Test.run(Test.java:10)
+
+at Test.run(Test.java:10)
+
+at Test.run(Test.java:10)
+</samp>
+</pre>
+
+<p>In order to define a stopping point for recursion, a base case must be defined. This is covered in the section below.</p>
+
+<h2>Base case</h2>
+
+<p>The base case is fundamental to writing recursive functions. It is essentially the stopping point for recursion. We need to think of recursion as a chain of events. The base case is the stopping point at which it will return up the chain.</p>
+
+<p>Look at example 5 in my previous article:
+A quick glace at recursion</p>
+
+<p>In the implementation of the recursive method factorial, the base case is defined by the line:</p>
+
+<pre>
+<code>
+if (n == 1) {
+
+
+
+    return 1;
+
+
+
+}
+</code>
+</pre>
+
+<p>At this point, the method will not longer return itself with a different set of parameters. Instead it will return a definite value of 1. Recursion has stopped.</p>
+
+<h2>Problem that is broken down</h2>
+
+<p>Recursion is typically used as a way to solve bigger problems, but to can be broken down into chunks. It also holds the advantage of creating a solution to a problem that is more legible. When thinking about breaking down a problem, think about how the base case is the point at which a problem can no longer be broken down anymore. Each time a problem is broken down into a smaller problem, the smaller problem’s solution must contribute to the solution of the larger problem. Finally, the solution to the original problem must result from the solutions of all smaller problems.<p>
+
+<p>To obtain the factorial of 5, we break the problem all the way down to 1. Then we multiply that by 2. The product of that is multiple by 3, and so forth as is shown below.</p>
+
+<pre>
+<samp>
+Factorial of 5
+
+5 – 1 = 4
+
+4 – 1 = 3
+
+3 – 1 = 2
+
+2 – 1 = 1
+
+1 x 2 = 2
+
+2 x 3 = 6
+
+6 x 4 = 24
+
+24 x 5 = 120
+
+The factorial of 5 is 120
+</samp>
+</pre>
+		</div>
+
+	</body>
+
+</html>

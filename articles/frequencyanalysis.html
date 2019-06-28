@@ -1,0 +1,259 @@
+<html>
+
+	<head>
+	
+  <meta charset="UTF-8">
+  <meta name="description" content="Frequency Analysis">
+  <meta name="keywords" content="java, frequency analysis">
+  <meta name="author" content="Todd Martin">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<link rel="stylesheet" href="../css/main.css">
+		<center><h1>Todd Martin</h1></center>
+		<center><h2>Software Engineering Student</h2></center>
+	</head>
+
+	<body>
+
+		<div class="topnav">
+			<a href="../index.html">Home</a>
+			<a href="../articles">Articles</a>
+			<a href="http://github.com/martintc">My Github</a>
+		</div>
+	
+		<div class="content">
+
+			<h1>Frequency Analysis</h1>
+
+			<p>In beginning the step of learning cryptography, a short walk through history of cryptography is generally in order. However, I will not go fully into that history, instead I will discuss an early technique used to encrypt data and decrypt. Then I will talk about my implementation in java of a program that performs some basic forms of frequency analysis.
+The Caesar Cipher</p>
+
+<p>One of the earliest way to encrypt a message was made popular through its use by Julius Caesar, in which the method is named after. It is probably one of the earliest known techniques. The idea would be to simply shift letters. Imagine if we took all of the letter of the alphabet in lower case and assigned a number to them in order. We would find that a is assigned 1, b is assigned two, c is assigned three, and so forth. We end up with z being assigned 26. We will call the number assigned to the character as <var>n</var>. So we can derive that if n=1 then we get <i>a</i>.</p>
+
+<p>To apply this cipher technique, we will assign the value of <i>a</i> to something such as n+2. The output we would get is <i>c</i>. Then to decrypt <i>c</i>, we would perform the decrypting method of n-2=1 which gets us back to the position where <var>a</var> is. Applying n+2 the word <i>hello</i> would be encrypted as <i>jfnnq</i>.</p>
+
+<h2>Cracking the Caesar Cipher</h2>
+
+<p>Soon this method of encryption became pretty wide spread to communicate message from war planning, economics, to even passing love notes between individuals. Being able to crack this code became important in the world at the time when this method reined supreme. Eventually, someone came up with a method, called frequency analysis.</p>
+
+<p>In frequency analysis, we are taking a look at the frequency in which letters occur. First we look at the frequency of letters that make up words in spoken language. Then we look at the frequency of letters of the encrypted message. In order to decrypt the method, we take a look at the similarities.</p>
+
+<p>In the English language, the letter e is the most frequently used letter. After e, the letter of t is next. Our result will be when looking at a message encrypted with a basic Caesar cipher, the letter that occurs the most is most likely to be e, the second letter is t, and so forth.
+The program</p>
+
+<p>I have written a basic program in java to show the frequency in which letters occur in the English language. Eventually, the plan will be to expand it into applying the information from that into decrypting messages. However, right now it will just take a text file and show the distribution of letters used. The code can be found in the following link. https://github.com/martintc/FrequencyAnalysis4Doc</p>
+
+<p>To test this program, I downloaded a text file of the federalist papers from the Gutenberg Project (https://www.gutenberg.org/) which provides tons of text files of classical books from Les Miserables to Moby Dick and more for free.</p>
+
+<p>Here is the output when running this against the federalist papers.</p>
+
+<pre>
+<samp>
+Frequency Analysis
+
+Enter a file name:
+
+federalist.txt
+
+Results
+
+a: 3560 0.07484022872519341%
+
+b: 656 0.013790783720148%
+
+c: 1505 0.0316389169189371%
+
+d: 1832 0.038513286242852336%
+
+e: 6432 0.13521695257315844%
+
+f: 1249 0.026257147662293978%
+
+g: 728 0.015304406323578877%
+
+h: 2335 0.04908762193070972%
+
+i: 3450 0.07252774974772956%
+
+j: 98 0.002060208543558695%
+
+k: 107 0.0022494113689875547%
+
+l: 1616 0.0339724184325597%
+
+m: 1184 0.024890682811974436%
+
+n: 3840 0.08072653884964683%
+
+o: 3911 0.08221913891691894%
+
+p: 1056 0.022199798183652877%
+
+q: 66 0.0013874873864783048%
+
+r: 2911 0.06119660275815674%
+
+s: 2870 0.06033467877564749%
+
+t: 4686 0.09851160443995964%
+
+u: 1254 0.02636226034308779%
+
+v: 578 0.012151025899764547%
+
+w: 793 0.01667087117389842%
+
+x: 84 0.0017658930373360242%
+
+y: 745 0.015661789438277833%
+
+z: 22 4.624957954927682E-4%
+</samp>
+</pre>
+
+<p>What we find in the output is that the letter e occurs more often than the letter z. The more accurate the numbers, the larger the file and probably the more that common words that everyone would use are being used in the text sample.</p>
+
+<p>The results of this program could be skewed in an extreme case depending on the selection of text that is ran. As an example, Ernest Vincent Wright wrote a book titled <i>Gadsby</i>, which is a 50,000 word novel that does not use a word with the letter e at all. So running novel in this program would result in e composing of 0% of the letters, however, this does not reflect how the actual English language is used.</p>
+
+<h2>Program specifics</h2>
+
+<p>In the program, each line of the file is iterated through. All letters are converted to lower case and trimmed down to exclude white space. This was a decision to reduce the run time. Otherwise, the program would compare each whitespace to a member of the used data structure.</p>
+
+<p>The data structure itself is an array list, however each element of the array list is defined by a custom type of “Node.” Node is implemented as a nested that defined two instances, character and count of character. Each character is passed to a function that compares the character against all of the character names within the array list, when it find one, it will increment the count by one.</p>
+
+<p>In order to get the percentage, a simple formula is implemented.</p>
+
+<p>countOfChar / totalCount</p>
+
+<p>In order to not include any symbols such as numbers or punctuation, the totalCount variable is incremented only when there was a comparision of a given character against the arraylist is true.
+More sample output</p>
+
+<pre>
+<samp>
+Frequency Analysis
+
+Enter a file name:
+
+aliceinwonderland.txt
+
+Results
+
+a: 9083 0.07752645954250598%
+
+b: 1621 0.013835780129737112%
+
+c: 2817 0.02404404233526801%
+
+d: 5228 0.04462273813588255%
+
+e: 15083 0.12873847729600546%
+
+f: 2248 0.019187435984977807%
+
+g: 2751 0.023480710139979516%
+
+h: 7581 0.06470638443154661%
+
+i: 7803 0.06660122908842608%
+
+j: 222 0.001894844656879481%
+
+k: 1202 0.010259474223284397%
+
+l: 5053 0.043129054284738816%
+
+m: 2244 0.019153294639808808%
+
+n: 7871 0.06718163195629907%
+
+o: 9245 0.07890918402185046%
+
+p: 1796 0.015329463980880847%
+
+q: 135 0.0011522703994537385%
+
+r: 6400 0.05462615227039946%
+
+s: 6981 0.05958518265619665%
+
+t: 11632 0.099283031751451%
+
+u: 3866 0.03299761010583817%
+
+v: 911 0.007775691362239673%
+
+w: 2696 0.02301126664390577%
+
+x: 170 0.0014510071696824855%
+
+y: 2442 0.02084329122567429%
+
+z: 79 6.742915670877432E-4%
+
+Frequency Analysis
+
+Enter a file name:
+
+dracula.txt
+
+Results
+
+a: 52570 0.0823795256243105%
+
+b: 8838 0.013849538662120148%
+
+c: 13646 0.0213838882760004%
+
+d: 28679 0.04494126717480694%
+
+e: 81261 0.12733959733226358%
+
+f: 14213 0.02227240246715475%
+
+g: 12647 0.0198184108915856%
+
+h: 42403 0.06644738491625715%
+
+i: 38379 0.06014159813459031%
+
+j: 492 7.709858589910741E-4%
+
+k: 6305 0.009880215123859191%
+
+l: 26101 0.040901426637248016%
+
+m: 17246 0.02702524821983753%
+
+n: 44551 0.0698133963494133%
+
+o: 51597 0.08085479139504563%
+
+p: 9183 0.014390168990071206%
+
+q: 545 8.540392137197874E-4%
+
+r: 36136 0.05662671748069401%
+
+s: 39632 0.0621051048039314%
+
+t: 58279 0.09132578226857888%
+
+u: 18492 0.028977785578176714%
+
+v: 5635 0.008830295356533948%
+
+w: 17415 0.027290078728312104%
+
+x: 813 0.0012740071206498846%
+
+y: 12806 0.02006757095577174%
+
+z: 280 4.3877244007622105E-4%
+</samp>
+</pre>
+
+
+		</div>
+
+	</body>
+
+</html>
